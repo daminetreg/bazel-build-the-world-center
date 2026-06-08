@@ -36,9 +36,12 @@ jobs:
       - name: Report build result
         if: always()
         run: |
-          STATUS="${{ steps.build.outcome }}"
-          START_TIME="${{ steps.start.outputs.time }}"
-          END_TIME="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          PAYLOAD=$(jq -n \
+            --arg full "tipi-build/get-started" \
+            --arg conclusion "${{ steps.build.outcome }}" \
+            --arg started "${{ steps.start.outputs.time }}" \
+            --arg updated "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            '{action:"completed",workflow_run:{repository:{full_name:$full},conclusion:$conclusion,run_started_at:$started,updated_at:$updated}}')
           curl -s -X POST "https://91a04815-bbdd-4aab-a39d-5a2e29cf8715-00-hbeqbks9dcc2.worf.replit.dev/api/github/webhook" \
             -H "Content-Type: application/json" \
-            -d "{"action":"completed","workflow_run":{"repository":{"full_name":"tipi-build/get-started"},"conclusion":"$STATUS","run_started_at":"$START_TIME","updated_at":"$END_TIME"}}"
+            -d "$PAYLOAD"
