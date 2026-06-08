@@ -1,0 +1,6 @@
+module(name = "boostorg_core", version = "0.0.1")
+
+dependency(
+    name = "rules_cc",
+    version = "0.0.8",
+)
