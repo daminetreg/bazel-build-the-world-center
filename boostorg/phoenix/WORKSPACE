@@ -1,0 +1,3 @@
+workspace(name = "boostorg_phoenix")
+
+# Minimal C++ toolchain workspace; relies on the host Bazel C++ toolchain.
