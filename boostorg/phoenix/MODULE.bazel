@@ -1,0 +1,3 @@
+module(name = "boostorg_phoenix", version = "0.0.1")
+
+# Rely on the default C++ toolchain provided by Bazel.
