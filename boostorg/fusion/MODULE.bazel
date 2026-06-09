@@ -1,0 +1,5 @@
+module(name = "boost_fusion", version = "0.0.1")
+
+dependency("rules_cc")
+
+bazel_dep(name = "rules_cc", version = "0.0.1", repo_name = "rules_cc")
